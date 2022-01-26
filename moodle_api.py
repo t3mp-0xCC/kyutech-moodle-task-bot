@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# for moodle 3.9
 
 from datetime import datetime
 from selenium import webdriver
@@ -31,9 +32,16 @@ def login(id, passwd):
 
         elem = driver.find_element_by_id('loginbtn')
         elem.click()
+        
     except WebDriverException:
         print('[Err] WebDriverException@login')
 
+    # login check
+    html = driver.page_source
+    if 'ダッシュボード'  or 'Dashboard' or '个人主页' or '강의 현황' in html:
+        print('[+] moodle login success !')
+    else:
+        print('[Err] moodle login failed...')
 
 
 def get_upcoming_tasks():
@@ -41,10 +49,12 @@ def get_upcoming_tasks():
         driver.get(moodle_url + '/calendar/view.php?view=upcoming')
         driver.set_page_load_timeout(30)
     except WebDriverException:
+        print('[Err] WebDriverException@get_upcoming_tasks')
         return None
 
     tasks = {}
-    events = driver.find_elements_by_class_name('event')
+    events = driver.find_elements_by_class_name('event')# list
+    print(events)
     for index, event in enumerate(events):
         task = event.get_attribute('data-event-title')
         date = event.find_elements_by_xpath('./div[1]/div[1]/span[1]')
