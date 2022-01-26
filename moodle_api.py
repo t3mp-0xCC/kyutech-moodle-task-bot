@@ -30,7 +30,6 @@ def login(id, passwd):
         elem.send_keys(passwd)
 
         elem = driver.find_element_by_id('loginbtn')
-        print(elem)
         elem.click()
     except WebDriverException:
         print('[Err] WebDriverException@login')
