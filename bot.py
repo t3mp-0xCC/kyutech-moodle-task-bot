@@ -7,36 +7,49 @@ from moodle_api import login, logout, get_upcoming_tasks_as_text, get_upcoming_t
 
 
 TOKEN = '*** PASTE YOUR DISCORD BOT TOKEN HERE ***'
-CHANNEL_ID = 0000000000000000000# dummy, change me !
+CHANNEL_ID = 0000000000000000000# DUMMY, CHANGE ME !
 MOODLE_ID = '*** PASTE YOUR MOODLE ID HERE ***'
 MOODLE_PASSWORD = '*** PASTE YOUR MOODLE PASSWORD HERE ***'
 
 
-client = discord.Client()
-ch = client.get_channel(CHANNEL_ID)
 bot = commands.Bot(command_prefix='$')
+bot.remove_command('help')
 
-@commands.command()
+
+@bot.event
+async def on_ready():
+    ch = bot.get_channel(CHANNEL_ID)
+    print("[+] Discord bot started !")
+    await ch.send("moodle bot started !")
+
+
+@bot.event
+async def on_message(message):
+    if message.author == bot.user:
+        return
+
+    await bot.process_commands(message)
+
+
+@bot.command()
 async def help(ctx):
-    ch.send("""kyutech moodle bot\n
-           list : show notice schedule\n
-           add : add notice schedule\n
-           exp. $add 8:00\n
-           delete : delete notice schedule
-            """)
+    print("[+] help command called")
+    await ctx.send("** Kyutech moodle bot **\n`list` : show notice schedule\n`add` : add notice schedule\nexp.   add 8:00\n`delete` : delete notice schedule\n")
 
-@tasks.loop(minutes=180)# 3 hours
+
+@bot.command()
+async def test(ctx):
+    print("[+] test command called")
+    await ctx.send("Knock knock!\nWho's there?\nHawaii.\nHawaii? who?\nI just said, how are you?\n")
+
+
 async def check_moodle():
     """ Check moodle tasks page """
     login(MOODLE_ID, MOODLE_PASSWORD)
     tasks = get_upcoming_tasks_as_text()
     logout()
+    ch = bot.get_channel(CHANNEL_ID)
     await ch.send(tasks)
 
-@client.event
-async def on_ready():
-    print("[+] Discord bot started !")
-    await ch.send("moodle bot started !")
-    check_moodle.start()
 
-client.run(TOKEN)
+bot.run(TOKEN)
