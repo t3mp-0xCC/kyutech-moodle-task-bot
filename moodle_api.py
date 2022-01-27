@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# for moodle 3.9
+# 
+# forked from https://github.com/Avielyo10/ariel-moodle-bot/blob/master/moodle_api.py
 
 from datetime import datetime
 from selenium import webdriver
@@ -45,8 +46,9 @@ def login(id, passwd):
 
 
 def get_upcoming_tasks():
+    moodle_tasks_url = moodle_url + '/calendar/view.php?view=upcoming'
     try:
-        driver.get(moodle_url + '/calendar/view.php?view=upcoming')
+        driver.get(moodle_tasks_url)
         driver.set_page_load_timeout(30)
     except WebDriverException:
         print('[Err] WebDriverException@get_upcoming_tasks')
@@ -54,17 +56,21 @@ def get_upcoming_tasks():
 
     tasks = {}
     events = driver.find_elements_by_class_name('event')# list
-    print(events)
     for index, event in enumerate(events):
         task = event.get_attribute('data-event-title')
-        date = event.find_elements_by_xpath('./div[1]/div[1]/span[1]')
+        date = event.find_elements_by_xpath('./div[1]/div[2]/div[1]/div[2]/a[1]')
         date = date[0].text
         i = {
             'name': task,
             'date': date,
-            'delta': get_delta(date)
+        #    'delta': get_delta(date)
         }
         tasks[str(index)] = i
+
+    print("[+] get task list from {}".format(moodle_tasks_url))
+    for index in tasks:
+        print(tasks[index])
+
     return tasks
 
 
