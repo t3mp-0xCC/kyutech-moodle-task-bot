@@ -89,7 +89,7 @@ def from_dict_to_text(tasks_dict):
     for _, task in tasks_dict.items():
         name = task['name']
         date = task['date']
-        tasks.append(f'*{name}* by *{date}*.\n')
+        tasks.append(f'*{name}* at *{date}*.\n')
     if len(tasks) == 0:
         message = None
     else:
