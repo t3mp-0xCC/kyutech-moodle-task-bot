@@ -63,7 +63,6 @@ def get_upcoming_tasks():
         i = {
             'name': task,
             'date': date,
-        #    'delta': get_delta(date)
         }
         tasks[str(index)] = i
 
@@ -90,9 +89,7 @@ def from_dict_to_text(tasks_dict):
     for _, task in tasks_dict.items():
         name = task['name']
         date = task['date']
-        delta = task['delta']
-        tasks.append(f'*{name}* by *{date}*.\n'
-                     f'*{delta}* have left!\n')
+        tasks.append(f'*{name}* by *{date}*.\n')
     if len(tasks) == 0:
         message = None
     else:

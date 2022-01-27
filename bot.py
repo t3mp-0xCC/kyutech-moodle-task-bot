@@ -6,25 +6,24 @@ from moodle_api import login, get_upcoming_tasks_as_text, get_upcoming_tasks, fr
 
 
 TOKEN = '*** PASTE YOUR DISCORD BOT TOKEN HERE ***'
-CHANNEL_ID = '*** PASTE CHANNEL_ID ***'
+CHANNEL_ID = 0000000000000000000# dummy, change me !
 MOODLE_ID = '*** PASTE YOUR MOODLE ID HERE ***'
 MOODLE_PASSWORD = '*** PASTE YOUR MOODLE PASSWORD HERE ***'
 
 
 client = discord.Client()
-channel_sent = None
 
-@tasks.loop(minutes=180)
+@tasks.loop(minutes=180)# 3 hours
 async def check_moodle():
     """ Check moodle tasks page """
     login(MOODLE_ID, MOODLE_PASSWORD)
-    tasks = get_upcoming_tasks()
-    await channel_sent.send(tasks)
+    tasks = get_upcoming_tasks_as_text()
+    ch = client.get_channel(CHANNEL_ID)
+    await ch.send(tasks)
 
 @client.event
 async def on_ready():
-    global channel_sent
-    channel_sent = client.get_channel(CHANNEL_ID)
+    print("[+] Discord bot started !")
     check_moodle.start()
 
 client.run(TOKEN)
