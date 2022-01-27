@@ -45,6 +45,25 @@ def login(id, passwd):
         print('[Err] moodle login failed...')
 
 
+def logout():
+    try:
+        driver.get(moodle_url + '/login/logout.php')
+        driver.set_page_load_timeout(30)
+
+        elem = driver.find_element_by_id('submit')
+        elem.click()
+        
+    except WebDriverException:
+        print('[Err] WebDriverException@login')
+
+    # logout check
+    html = driver.page_source
+    if 'あなたはログインしていません'  or 'You are not logged in' or '您尚未登录' or '접속되지 않았습니다' in html:
+        print('[+] moodle logout success !')
+    else:
+        print('[Err] moodle logout failed...')
+
+
 def get_upcoming_tasks():
     moodle_tasks_url = moodle_url + '/calendar/view.php?view=upcoming'
     try:

@@ -2,7 +2,7 @@
 from discord.ext import tasks
 import discord
 # import from moodle_api.py
-from moodle_api import login, get_upcoming_tasks_as_text, get_upcoming_tasks, from_dict_to_set
+from moodle_api import login, logout, get_upcoming_tasks_as_text, get_upcoming_tasks, from_dict_to_set
 
 
 TOKEN = '*** PASTE YOUR DISCORD BOT TOKEN HERE ***'
@@ -18,6 +18,7 @@ async def check_moodle():
     """ Check moodle tasks page """
     login(MOODLE_ID, MOODLE_PASSWORD)
     tasks = get_upcoming_tasks_as_text()
+    logout()
     ch = client.get_channel(CHANNEL_ID)
     await ch.send(tasks)
 
