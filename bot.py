@@ -2,8 +2,8 @@
 import discord
 from discord.ext import tasks
 from discord.ext import commands
-# import from moodle_api.py
 from moodle_api import login, logout, get_upcoming_tasks_as_text, get_upcoming_tasks, from_dict_to_set
+from scheduler import read_schedule
 
 
 TOKEN = '*** PASTE YOUR DISCORD BOT TOKEN HERE ***'
@@ -35,6 +35,13 @@ async def on_message(message):
 async def help(ctx):
     print("[+] help command called")
     await ctx.send("** Kyutech moodle bot **\n`list` : show notice schedule\n`add` : add notice schedule\nexp.   add 8:00\n`delete` : delete notice schedule\n")
+
+
+@bot.command()
+async def show(ctx):
+    print("[+] show command called")
+    await ctx.send("** Notice Schedule List **")
+    await ctx.send(read_schedule('./schedule.txt'))
 
 
 @bot.command()
