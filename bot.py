@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-from discord.ext import tasks
 import discord
+from discord.ext import tasks
+from discord.ext import commands
 # import from moodle_api.py
 from moodle_api import login, logout, get_upcoming_tasks_as_text, get_upcoming_tasks, from_dict_to_set
 
@@ -13,6 +14,16 @@ MOODLE_PASSWORD = '*** PASTE YOUR MOODLE PASSWORD HERE ***'
 
 client = discord.Client()
 ch = client.get_channel(CHANNEL_ID)
+bot = commands.Bot(command_prefix='$')
+
+@commands.command()
+async def help(ctx):
+    ch.send("""kyutech moodle bot\n
+           list : show notice schedule\n
+           add : add notice schedule\n
+           exp. $add 8:00\n
+           delete : delete notice schedule
+            """)
 
 @tasks.loop(minutes=180)# 3 hours
 async def check_moodle():
