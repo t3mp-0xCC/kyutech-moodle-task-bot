@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
+import datetime
+import time
 import discord
 from discord.ext import tasks
 from discord.ext import commands
 from moodle_api import login, logout, get_upcoming_tasks_as_text, get_upcoming_tasks, from_dict_to_set
-from scheduler import read_schedule
+from scheduler import read_schedule, check_schedule
 
 
 TOKEN = '*** PASTE YOUR DISCORD BOT TOKEN HERE ***'
@@ -21,6 +23,7 @@ async def on_ready():
     ch = bot.get_channel(CHANNEL_ID)
     print("[+] Discord bot started !")
     await ch.send("moodle bot started !")
+    check_every_ten_min.start()
 
 
 @bot.event
@@ -40,9 +43,15 @@ async def help(ctx):
 @bot.command()
 async def show(ctx):
     print("[+] show command called")
-    await ctx.send("** Notice Schedule List **")
-    await ctx.send(read_schedule('./schedule.txt'))
+    schedules = read_schedule('./schedule.txt')
+    if schedules is None:
+        await ctx.send("There is no schedules")
+        return
 
+    message = '\n'.join(schedules)
+    await ctx.send("** Notice Schedule List **")
+    await ctx.send(message)
+    
 
 @bot.command()
 async def test(ctx):
@@ -50,8 +59,16 @@ async def test(ctx):
     await ctx.send("Knock knock!\nWho's there?\nHawaii.\nHawaii? who?\nI just said, how are you?\n")
 
 
+@tasks.loop(minutes=10)
+async def check_every_ten_min():
+    if check_schedule('./schedule.txt'):
+        check_moodle()
+    else:
+        return
+    
+
 async def check_moodle():
-    """ Check moodle tasks page """
+    """ Check moodle tasks page and send it"""
     login(MOODLE_ID, MOODLE_PASSWORD)
     tasks = get_upcoming_tasks_as_text()
     logout()

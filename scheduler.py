@@ -2,12 +2,11 @@ import datetime
 
 def read_schedule(path):
     """ Read schedule file(path) """
-    file = open(path, 'r')
-    schedule = file.readline()
+    List =  open(path, 'r', encoding='utf-8').readlines()
     print("[+] {}".format(path))
-    print(schedule)
-    file.close()
-    return schedule
+    print(List)
+    return List
+
 
 def check_schedule(path):
     """ Check schedule from the file(path) """
