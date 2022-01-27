@@ -12,6 +12,7 @@ MOODLE_PASSWORD = '*** PASTE YOUR MOODLE PASSWORD HERE ***'
 
 
 client = discord.Client()
+ch = client.get_channel(CHANNEL_ID)
 
 @tasks.loop(minutes=180)# 3 hours
 async def check_moodle():
@@ -19,12 +20,12 @@ async def check_moodle():
     login(MOODLE_ID, MOODLE_PASSWORD)
     tasks = get_upcoming_tasks_as_text()
     logout()
-    ch = client.get_channel(CHANNEL_ID)
     await ch.send(tasks)
 
 @client.event
 async def on_ready():
     print("[+] Discord bot started !")
+    await ch.send("moodle bot started !")
     check_moodle.start()
 
 client.run(TOKEN)
