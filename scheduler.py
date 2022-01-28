@@ -8,12 +8,40 @@ def read_schedule(path):
     return List
 
 
+def add_schedule(path, time):
+    """ Add schedule """
+    if check_value(time, path):
+        with open(path, 'a') as f:
+            f.write(time + '\n')
+        return True
+    else:
+        return False
+
+def check_value(val, path):
+    """ Check user input value """
+    if len(val) > 5:
+        print("[Err] check_value: len error")
+        return False
+    
+    temp = val.split(':')
+    if not(temp[0].isdecimal() and temp[1].isdecimal()):
+        print("[Err] check_value: format error")
+        return False
+
+    current_list = '\n'.join(read_schedule(path))
+    if val in current_list:
+        print("[Err] check_value: duplicate error")
+        return False
+
+    return True
+
+
 def check_schedule(path):
     """ Check schedule from the file(path) """
     now = datetime.datetime.now()
     print("[i] now: {}".format(now))
     file = read_schedule(path)
-    for i in range(11):# 10 = check rug (check_every_ten_min)
+    for i in range(11):# check rug (check_every_ten_min)
         time = (now - datetime.timedelta(minutes=i)).strftime('%H:%M')
         if time[0] == '0':# remove first 0(ex. 08:00 -> 8:00)
             time = time.replace(time[0], '', 1)
