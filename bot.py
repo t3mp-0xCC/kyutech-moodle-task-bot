@@ -39,8 +39,8 @@ async def help(ctx):
 
 
 @bot.command()
-async def show(ctx):
-    print("[+] show command called")
+async def list(ctx):
+    print("[+] list command called")
     schedules = read_schedule('./schedule.txt')
     if schedules is None:
         await ctx.send("There is no schedules")
