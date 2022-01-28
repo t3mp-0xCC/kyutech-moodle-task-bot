@@ -5,7 +5,7 @@ import discord
 from discord.ext import tasks
 from discord.ext import commands
 from moodle_api import login, logout, get_upcoming_tasks_as_text, get_upcoming_tasks, from_dict_to_set
-from scheduler import read_schedule, check_schedule, add_schedule
+from scheduler import read_schedule, check_schedule, add_schedule, remove_schedule
 
 
 TOKEN = '*** PASTE YOUR DISCORD BOT TOKEN HERE ***'
@@ -37,7 +37,7 @@ async def on_message(message):
 @bot.command()
 async def help(ctx):
     print("[+] help command called")
-    await ctx.send("** Kyutech moodle bot **\n`list` : show notice schedule\n`add` : add notice schedule\nexp.   add 8:00\n`delete` : delete notice schedule\n")
+    await ctx.send("** Kyutech moodle bot **\n`list` : show notice schedule\n`add` : add notice schedule\nexp.   add 8:00\n`remove` : remove notice schedule\n")
 
 
 @bot.command()
@@ -58,6 +58,16 @@ async def add(ctx, arg):
     print("[+] add command called")
     if add_schedule('./schedule.txt', arg):
         await ctx.send("Add {} to the schedule list".format(arg))
+        await list(ctx)
+    else:
+        await ctx.send("{} is invalid value !".format(arg))
+
+
+@bot.command()
+async def remove(ctx, arg):
+    print("[+] remove command called")
+    if remove_schedule('./schedule.txt', arg):
+        await ctx.send("Remove {} from the schedule list".format(arg))
         await list(ctx)
     else:
         await ctx.send("{} is invalid value !".format(arg))

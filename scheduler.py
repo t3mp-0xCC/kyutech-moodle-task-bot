@@ -1,5 +1,6 @@
 import datetime
 
+
 def read_schedule(path):
     """ Read schedule file(path) """
     List =  open(path, 'r', encoding='utf-8').readlines()
@@ -10,14 +11,35 @@ def read_schedule(path):
 
 def add_schedule(path, time):
     """ Add schedule """
-    if check_value(time, path):
+    if check_value(path, time) and check_duplicate(path, time):
         with open(path, 'a') as f:
             f.write(time + '\n')
         return True
     else:
         return False
 
-def check_value(val, path):
+
+def remove_schedule(path, time):
+    """ Remove schedule """
+    if check_value(path, time) and not(check_duplicate(path, time)):
+        file = open(path,'r')
+        lst = []
+        for line  in file:
+            if time in line:
+                line = line.replace(time, '')
+            lst.append(line)
+        file.close()
+        file = open(path, 'w')
+        for line in lst:
+            file.write(line)
+        file.close()
+
+        return True
+    else:
+        return False
+
+
+def check_value(path, val):
     """ Check user input value """
     if len(val) > 5:
         print("[Err] check_value: len error")
@@ -27,10 +49,13 @@ def check_value(val, path):
     if not(temp[0].isdecimal() and temp[1].isdecimal()):
         print("[Err] check_value: format error")
         return False
+    
+    return True
 
+
+def check_duplicate(path, val):
     current_list = '\n'.join(read_schedule(path))
     if val in current_list:
-        print("[Err] check_value: duplicate error")
         return False
 
     return True
@@ -54,5 +79,3 @@ def check_schedule(path):
                 return True
 
     return False
-    
-
