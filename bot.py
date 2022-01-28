@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-import datetime
-import time
 import discord
 from discord.ext import tasks
 from discord.ext import commands
@@ -50,8 +48,8 @@ async def show(ctx):
 
     message = '\n'.join(schedules)
     await ctx.send("** Notice Schedule List **")
-    await ctx.send(message)
-    
+    await ctx.send(message)    
+
 
 @bot.command()
 async def test(ctx):
@@ -62,7 +60,7 @@ async def test(ctx):
 @tasks.loop(minutes=10)
 async def check_every_ten_min():
     if check_schedule('./schedule.txt'):
-        check_moodle()
+        await check_moodle()
     else:
         return
     
