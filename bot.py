@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
+import datetime
+import time
 import discord
 from discord.ext import tasks
 from discord.ext import commands
 from moodle_api import login, logout, get_upcoming_tasks_as_text, get_upcoming_tasks, from_dict_to_set
-from scheduler import read_schedule, check_schedule
+from scheduler import read_schedule, check_schedule, add_schedule
 
 
 TOKEN = '*** PASTE YOUR DISCORD BOT TOKEN HERE ***'
@@ -48,7 +50,17 @@ async def list(ctx):
 
     message = '\n'.join(schedules)
     await ctx.send("** Notice Schedule List **")
-    await ctx.send(message)    
+    await ctx.send(message)
+
+
+@bot.command()
+async def add(ctx, arg):
+    print("[+] add command called")
+    if add_schedule('./schedule.txt', arg):
+        await ctx.send("Add {} to the schedule list".format(arg))
+        await list(ctx)
+    else:
+        await ctx.send("{} is invalid value !".format(arg))
 
 
 @bot.command()
