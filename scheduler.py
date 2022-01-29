@@ -54,7 +54,7 @@ def check_value(path, val):
         print("[Err] check_value: format error(val is not decimal)")
         return False
 
-    if int(temp[0]) > 12 or (int(temp[1]) > 59 or len(temp[1]) < 2):
+    if int(temp[0]) > 24 or (int(temp[1]) > 59 or len(temp[1]) < 2):
         print("[Err] check_value: format error(invalid decimal)")
         return False
 
