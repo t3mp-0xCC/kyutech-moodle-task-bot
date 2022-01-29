@@ -44,7 +44,11 @@ def check_value(path, val):
     if len(val) > 5:
         print("[Err] check_value: len error")
         return False
-    
+
+    if not(':' in val):
+        print("[Err] check_value: format error(not ':' in val)")
+        return False
+
     temp = val.split(':')
     if not(temp[0].isdecimal() and temp[1].isdecimal()):
         print("[Err] check_value: format error")
