@@ -37,7 +37,7 @@ async def on_message(message):
 @bot.command()
 async def help(ctx):
     print("[+] help command called")
-    await ctx.send("** Kyutech moodle bot **\n`list` : show notice schedule\n`add` : add notice schedule\nexp.   add 8:00\n`remove` : remove notice schedule\n")
+    await ctx.send(await ctx.send("** Kyutech moodle bot **\n`list` :  show moodle check schedule list\n`add` :  add time to the check schedule list\ne.g.  add 8:00\n`remove` : remove time from the schedule list\n"))
 
 
 @bot.command()
@@ -77,6 +77,11 @@ async def remove(ctx, arg):
 async def test(ctx):
     print("[+] test command called")
     await ctx.send("Knock knock!\nWho's there?\nHawaii.\nHawaii? who?\nI just said, how are you?\n")
+
+
+@bot.command()
+async def secret(ctx):
+    await ctx.send("Wow, did you read the source code?(or guessing?)\nIf you have a great idea, please contribute this bot.\n")
 
 
 @tasks.loop(minutes=10)
