@@ -31,6 +31,9 @@ Add some const at https://github.com/t3mp-0xCC/kyutech-moodle-task-bot/blob/main
 Optional: custom prefix  
 Default prefix is `$`  
 If it overlaps with other bots, overwrite here https://github.com/t3mp-0xCC/kyutech-moodle-task-bot/blob/main/bot.py#L17  
+## Run  
+`$ python3 ./bot.py`  
+
 ## Commands
 `help`: show help  
 `list`: show moodle check schedule  list  
