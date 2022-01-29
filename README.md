@@ -5,7 +5,7 @@ Discord bot that gets task list from Kyutech Univ moodle
 **Debian (or Ubuntu)**  
 1. Install depends packages  
 
-`$ sudo apt install python3-pip xvfb firefox`
+`$ sudo apt install python3-pip xvfb firefox git`
 
 2. Install geckodriver  
 
@@ -16,12 +16,15 @@ Discord bot that gets task list from Kyutech Univ moodle
 **Arch Linux**  
 1. Install depends packages  
 
-`$ sudo  pacman -S python-pip xorg-server-xvfb geckodriver firefox`  
+`$ sudo  pacman -S python-pip xorg-server-xvfb geckodriver firefox git`  
 
-### 2. install pip package
+### 2. Download source code
+`$ git clone https://github.com/t3mp-0xCC/kyutech-moodle-task-bot`  
+
+### 3. install pip package
 `$ pip install -r requirements.txt`  
 
-### 3. Add some information  
+### 4. Add some information  
 Add some const at https://github.com/t3mp-0xCC/kyutech-moodle-task-bot/blob/main/bot.py#L11 
 
 Optional: custom prefix  
