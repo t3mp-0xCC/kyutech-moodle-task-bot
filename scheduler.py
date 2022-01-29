@@ -44,12 +44,20 @@ def check_value(path, val):
     if len(val) > 5:
         print("[Err] check_value: len error")
         return False
-    
+
+    if not(':' in val):
+        print("[Err] check_value: format error(not ':' in val)")
+        return False
+
     temp = val.split(':')
     if not(temp[0].isdecimal() and temp[1].isdecimal()):
-        print("[Err] check_value: format error")
+        print("[Err] check_value: format error(val is not decimal)")
         return False
-    
+
+    if int(temp[0]) > 12 or (int(temp[1]) > 59 or len(temp[1]) < 2):
+        print("[Err] check_value: format error(invalid decimal)")
+        return False
+
     return True
 
 
