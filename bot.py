@@ -37,7 +37,7 @@ async def on_message(message):
 @bot.command()
 async def help(ctx):
     print("[+] help command called")
-    await ctx.send(await ctx.send("** Kyutech moodle bot **\n`list` :  show moodle check schedule list\n`add` :  add time to the check schedule list\ne.g.  add 8:00\n`remove` : remove time from the schedule list\n`fetch` : fetch task list from moodle\n"))
+    await ctx.send("** Kyutech moodle bot **\n`list` :  show moodle check schedule list\n`add` :  add time to the check schedule list\ne.g.  add 8:00\n`remove` : remove time from the schedule list\n`fetch` : fetch task list from moodle")
 
 
 @bot.command()
@@ -76,7 +76,7 @@ async def remove(ctx, arg):
 @bot.command()
 async def fetch(ctx):
     print("[+] fetch command called")
-    await ctx.send("fetching moodle...")
+    await ctx.send("fetching from moodle...")
     await check_moodle()
 
 

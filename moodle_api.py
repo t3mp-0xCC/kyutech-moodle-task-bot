@@ -77,11 +77,15 @@ def get_upcoming_tasks():
     events = driver.find_elements_by_class_name('event')# list
     for index, event in enumerate(events):
         task = event.get_attribute('data-event-title')
-        date = event.find_elements_by_xpath('./div[1]/div[2]/div[1]/div[2]/a[1]')
-        date = date[0].text
+        deadline = event.find_elements_by_xpath('./div[1]/div[2]/div[1]/div[2]')
+        deadline = deadline[0].text
+        temp = deadline.split(',')
+        date = temp[0]
+        time = temp[1]
         i = {
             'name': task,
             'date': date,
+            'time': time,
         }
         tasks[str(index)] = i
 
@@ -108,7 +112,8 @@ def from_dict_to_text(tasks_dict):
     for _, task in tasks_dict.items():
         name = task['name']
         date = task['date']
-        tasks.append(f'*{name}* at *{date}*.\n')
+        time = task['time']
+        tasks.append(f'*{name}* at *{date}* {time}.\n')
     if len(tasks) == 0:
         message = None
     else:
