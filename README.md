@@ -20,6 +20,7 @@ Discord bot that gets task list from Kyutech Univ moodle
 
 ### 2. Download source code
 `$ git clone https://github.com/t3mp-0xCC/kyutech-moodle-task-bot`  
+`$ cd kyutech-moodle-task-bot`
 
 ### 3. install pip package
 `$ pip install -r requirements.txt`  
