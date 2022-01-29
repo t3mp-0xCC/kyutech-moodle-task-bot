@@ -79,7 +79,7 @@ def get_upcoming_tasks():
         task = event.get_attribute('data-event-title')
         deadline = event.find_elements_by_xpath('./div[1]/div[2]/div[1]/div[2]')
         deadline = deadline[0].text
-        temp = deadline.split(',')
+        temp = deadline.split(', ')
         date = temp[0]
         time = temp[1]
         i = {
@@ -113,7 +113,7 @@ def from_dict_to_text(tasks_dict):
         name = task['name']
         date = task['date']
         time = task['time']
-        tasks.append(f'*{name}* at *{date}* {time}.\n')
+        tasks.append(f'**{name}** at **{date}**  **{time}**.\n')
     if len(tasks) == 0:
         message = None
     else:
