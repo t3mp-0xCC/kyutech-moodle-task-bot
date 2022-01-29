@@ -40,3 +40,4 @@ If it overlaps with other bots, overwrite here https://github.com/t3mp-0xCC/kyut
 `add <time>`: add time to the check schedule list  
 e.g.  `add 8:00`  
 `remove <time>`: remove time from the schedule list  
+`fetch` : fetch task list from moodle
