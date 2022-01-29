@@ -10,11 +10,12 @@ Discord bot that gets task list from Kyutech Univ moodle
 2. Install geckodriver  
 
 `$ wget https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodriver-v0.30.0-linux64.tar.gz`  
-`$ tar -xvzf geckodriver*`
-`$ chmod +x geckodriver`
-`$ sudo mv ./geckodriver /usr/local/bin`
+`$ tar -xvzf geckodriver*`  
+`$ chmod +x geckodriver`  
+`$ sudo mv ./geckodriver /usr/local/bin`  
 **Arch Linux**  
 1. Install depends packages  
+
 `$ sudo  pacman -S python-pip xorg-server-xvfb geckodriver firefox`  
 
 ### 2. install pip package
