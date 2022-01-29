@@ -74,7 +74,7 @@ def check_schedule(path):
     now = datetime.datetime.now()
     print("[i] now: {}".format(now))
     file = read_schedule(path)
-    for i in range(11):# check rug (check_every_ten_min)
+    for i in range(10):# check rug (check_every_ten_min)
         time = (now - datetime.timedelta(minutes=i)).strftime('%H:%M')
         if time[0] == '0':# remove first 0(ex. 08:00 -> 8:00)
             time = time.replace(time[0], '', 1)
