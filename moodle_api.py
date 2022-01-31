@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# 
+# -*- coding:utf-8 -*-
 # forked from https://github.com/Avielyo10/ariel-moodle-bot/blob/master/moodle_api.py
 
 from datetime import datetime
@@ -77,6 +77,7 @@ def get_upcoming_tasks():
     events = driver.find_elements_by_class_name('event')# list
     for index, event in enumerate(events):
         task = event.get_attribute('data-event-title')
+        task = remove_excess(task)
         deadline = event.find_elements_by_xpath('./div[1]/div[2]/div[1]/div[2]')
         deadline = deadline[0].text
         temp = deadline.split(', ')
@@ -101,6 +102,10 @@ def get_delta(date):
     now = datetime.now()
     when = datetime.strptime(date, '%d/%m/%Y, %H:%M')
     return when - now
+
+
+def remove_excess(title):
+    return title.replace('期限が近づいています', '')
 
 
 def from_dict_to_text(tasks_dict):
