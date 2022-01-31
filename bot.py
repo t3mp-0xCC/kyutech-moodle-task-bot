@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*
+import os
 import datetime
 import time
 import sqlite3
@@ -7,6 +8,7 @@ import discord
 from discord.ext import tasks
 from discord.ext import commands
 from moodle_api import login, logout, get_upcoming_tasks_as_text, get_upcoming_tasks, from_dict_to_set
+from db import db_init
 from scheduler import read_schedule, check_schedule, add_schedule, remove_schedule
 
 
@@ -25,7 +27,7 @@ async def on_ready():
     ch = bot.get_channel(CHANNEL_ID)
     print("[+] Discord bot started !")
     await ch.send("moodle bot started !")
-    await db_init()
+    db_init()
     check_every_ten_min.start()
 
 
@@ -110,16 +112,6 @@ async def check_moodle():
     logout()
     ch = bot.get_channel(CHANNEL_ID)
     await ch.send(tasks)
-
-
-async def db_init():
-    print("[+] databse init")
-    db = './main.db'
-    conn = sqlite3.connect(db)
-    cur = conn.cursor()
-    cur.execute('CREATE TABLE persons(id INTEGER PRIMARY KEY AUTOINCREMENT, name STRING)')
-    conn.commit()
-    conn.close(db)
 
 
 bot.run(TOKEN)
