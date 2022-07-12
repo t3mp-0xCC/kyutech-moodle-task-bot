@@ -74,7 +74,7 @@ def get_upcoming_tasks():
         return None
 
     tasks = {}
-    events = driver.find_elements_by_class_name('event')# list
+    events = driver.find_elements('name', 'event')# list
     for index, event in enumerate(events):
         task = event.get_attribute('data-event-title')
         task = remove_excess(task)
