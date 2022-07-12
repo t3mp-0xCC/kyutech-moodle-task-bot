@@ -6,6 +6,7 @@ from datetime import datetime
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from selenium.webdriver.common.by import By
 from pyvirtualdisplay import Display
 
 """ Firefox settings """
