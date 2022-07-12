@@ -24,15 +24,15 @@ def login(id, passwd):
         driver.get(moodle_url + '/login/index.php')
         driver.set_page_load_timeout(30)
 
-        elem = driver.find_element('name', 'username')
+        elem = driver.find_element(By.ID, 'username')
         elem.clear()
         elem.send_keys(id)
 
-        elem = driver.find_element('name', 'password')
+        elem = driver.find_element(By.ID, 'password')
         elem.clear()
         elem.send_keys(passwd)
 
-        elem = driver.find_element('name', 'loginbtn')
+        elem = driver.find_element(By.ID, 'loginbtn')
         elem.click()
 
     except WebDriverException:
@@ -50,8 +50,7 @@ def logout():
     try:
         driver.get(moodle_url + '/login/logout.php')
         driver.set_page_load_timeout(30)
-
-        elem = driver.find_element('name', 'submit')
+        elem = driver.find_element(By.ID, 'submit')
         elem.click()
 
     except WebDriverException:
@@ -70,6 +69,8 @@ def get_upcoming_tasks():
     try:
         driver.get(moodle_tasks_url)
         driver.set_page_load_timeout(30)
+        html2 = driver.page_source
+        print(html2)
     except WebDriverException:
         print('[Err] WebDriverException@get_upcoming_tasks')
         return None
