@@ -74,11 +74,11 @@ def get_upcoming_tasks():
         return None
 
     tasks = {}
-    events = driver.find_elements(by=By.CLASS_NAME, value='event')# list
+    events = driver.find_element(by=By.CLASS_NAME, value='event')# list
     for index, event in enumerate(events):
         task = event.get_attribute('data-event-title')
         task = remove_excess(task)
-        deadline = event.find_elements(by=By.XPATH, value='./div[1]/div[2]/div[1]/div[2]')
+        deadline = event.find_element(by=By.XPATH, value='./div[1]/div[2]/div[1]/div[2]')
         deadline = deadline[0].text
         temp = deadline.split(', ')
         date = temp[0]
