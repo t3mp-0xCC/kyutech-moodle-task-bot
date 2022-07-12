@@ -23,17 +23,17 @@ def login(id, passwd):
         driver.get(moodle_url + '/login/index.php')
         driver.set_page_load_timeout(30)
 
-        elem = driver.find_element_by_id('username')
+        elem = driver.find_element('name', 'username')
         elem.clear()
         elem.send_keys(id)
 
-        elem = driver.find_element_by_id('password')
+        elem = driver.find_element('name', 'password')
         elem.clear()
         elem.send_keys(passwd)
 
-        elem = driver.find_element_by_id('loginbtn')
+        elem = driver.find_element('name', 'loginbtn')
         elem.click()
-        
+
     except WebDriverException:
         print('[Err] WebDriverException@login')
 
@@ -50,9 +50,9 @@ def logout():
         driver.get(moodle_url + '/login/logout.php')
         driver.set_page_load_timeout(30)
 
-        elem = driver.find_element_by_id('submit')
+        elem = driver.find_element('name', 'submit')
         elem.click()
-        
+
     except WebDriverException:
         print('[Err] WebDriverException@login')
 
